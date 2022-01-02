@@ -3,7 +3,7 @@ package com.asura.structure.stack;
 import java.util.Stack;
 
 public class PlusOne {
-    public static int[] plusOne(int[] digits) {
+    public int[] plusOne(int[] digits) {
         // 记录是否需要+1
         Stack<Integer> stack = new Stack();
         stack.push(1);
