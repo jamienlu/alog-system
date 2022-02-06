@@ -14,6 +14,7 @@ public class Week2Test {
 
     @Test
     public void testWebCount() {
+
         String[] arr = new String[]{"9001 discuss.leetcode.com"};
         List<String> result = new CalcWebCount().subdomainVisits(arr);
         Assert.assertTrue(result.contains("9001 discuss.leetcode.com"));

@@ -15,7 +15,6 @@ public class Week1Test {
 
     @Test
     public void mergeTwoLists() {
-        int[] arr = new int[]{1,3,5,8,9};
         ListNode listNode1 = new ListNode(0);
         ListNode listNode2 = new ListNode(1);
         ListNode node = new MergeSoredList().mergeTwoLists(listNode1, listNode2);
