@@ -3,13 +3,30 @@ package com.asura.structure.work;
 import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.concurrent.locks.LockSupport;
 
 public class Test {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws InterruptedException {
+		System.out.println("main start");
+		Thread thread = new Thread(() -> {
+			LockSupport.park();
+			System.out.println("unpark block1");
+			LockSupport.park();
+			System.out.println("unpark block2");
 
-
-
+		});
+		LockSupport.unpark(thread);
+		thread.start();
+		System.out.println("main end");
     }
+
+
+
+
+
+
+
+
     public List<List<Integer>> fourSum(int[] nums, int target) {
         if (nums.length < 4) {
             return new LinkedList<>();

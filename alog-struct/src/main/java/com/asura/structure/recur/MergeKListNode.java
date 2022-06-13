@@ -1,6 +1,6 @@
 package com.asura.structure.recur;
 
-import com.asura.structure.linklist.ListNode;
+import com.asura.structure.list.ListNode;
 
 public class MergeKListNode {
     public ListNode mergeKLists(ListNode[] lists) {

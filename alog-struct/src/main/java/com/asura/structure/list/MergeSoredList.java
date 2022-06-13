@@ -1,4 +1,4 @@
-package com.asura.structure.linklist;
+package com.asura.structure.list;
 
 /**
  * 合并有序链表

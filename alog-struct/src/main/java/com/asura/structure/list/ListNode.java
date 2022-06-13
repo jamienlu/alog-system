@@ -1,4 +1,4 @@
-package com.asura.structure.linklist;
+package com.asura.structure.list;
 
 /**
  * 算法 链表基础数据结构

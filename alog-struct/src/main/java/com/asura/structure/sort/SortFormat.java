@@ -4,7 +4,29 @@ import java.util.PriorityQueue;
 import java.util.Queue;
 
 public class SortFormat {
-    public void insertSort(int[] target) {
+
+	public static void chooseSort(int[] target) {
+		int n = target.length;
+		for (int i = 0; i < n; i++) {
+			int min = i;
+			for (int j = i+1; j < n; j++) {
+				if (target[j] < target[min]) {
+					min = j;
+				}
+			}
+			if (i != min) {
+				exch(target, i, min);
+			}
+		}
+	}
+
+	private static void exch(int[] target, int i, int min) {
+		target[i] = target[i] ^ target[min];
+		target[min] = target[i] ^ target[min];
+		target[min] = target[i] ^ target[min];
+	}
+
+	public static void insertSort(int[] target) {
         for (int i = 1; i < target.length; i++) {
             int value = target[i];
             int j = i -1;
@@ -19,7 +41,24 @@ public class SortFormat {
         }
     }
 
-    public void quickSort(int[] target, int start, int end) {
+	public static void shellSort(int[] target) {
+		int n = target.length;
+		int h = 1;
+		while (h < n/3) {
+			h = 3*h +1;
+		}
+		while (h >=1) {
+			for (int i = h; i < n; i++) {
+				for (int j = i; j >= h && target[j] < target[j-h]; j-=h) {
+					exch(target, j, j - h);
+				}
+			}
+			h /= 3;
+
+		}
+	}
+
+    public static void quickSort(int[] target, int start, int end) {
         if (start >= end) {
             return;
         }
@@ -28,7 +67,7 @@ public class SortFormat {
         quickSort(target, pivot + 1, end);
     }
 
-    public int partition(int[] target, int start, int end) {
+    public static int partition(int[] target, int start, int end) {
         int pivot = start + (int)(Math.random() * (end - start + 1));
         int pivotVal = target[pivot];
         while (start <= end) {
@@ -51,6 +90,8 @@ public class SortFormat {
         }
         return end;
     }
+
+
 
     public void recurSort(int[] target, int start, int end) {
         if (start >= end) {
