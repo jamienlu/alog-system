@@ -6,21 +6,18 @@ import java.util.List;
 import java.util.concurrent.locks.LockSupport;
 
 public class Test {
-    public static void main(String[] args) throws InterruptedException {
-		System.out.println("main start");
-		Thread thread = new Thread(() -> {
-			LockSupport.park();
-			System.out.println("unpark block1");
-			LockSupport.park();
-			System.out.println("unpark block2");
+	private static final Test a = new Test();
+	private Test() {
 
-		});
-		LockSupport.unpark(thread);
-		thread.start();
-		System.out.println("main end");
+	}
+    public static void main(String[] args) throws InterruptedException {
+		Test b = getA();
+		System.out.println(1);
     }
 
-
+	public static Test getA() {
+		return a;
+	}
 
 
 

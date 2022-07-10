@@ -12,6 +12,12 @@ public class ArraySolution {
 	 * @return no repeat nums length
 	 */
 	public static int removeSortDuplicates(int[] nums) {
+		/**
+		 * 思路：
+		 *  1.保存当前数组已存非重复数下标 init = 0
+		 *  2.扫描数组 不重复填充，下标+1，重复跳到下一个元素
+		 *
+ 		 */
 		// 记录判重值
 		int index = 0;
 		for (int i = 0; i < nums.length; i++) {
@@ -30,6 +36,12 @@ public class ArraySolution {
 	 * @param nums
 	 */
 	public static void moveZeroes(int[] nums) {
+		/**
+		 * 思路：
+		 *  1.保存当前数组非0下标 init = 0
+		 *  2.扫描数组 ！=0填充，下标+1，=0跳到下一个元素
+		 *  3.从填充的下标开始后面都重新补0
+		 */
 		int index = 0;
 		for (int i = 0; i < nums.length; i++) {
 			// 是否为0
@@ -56,6 +68,13 @@ public class ArraySolution {
 	 * @param n
 	 */
 	public static void merge(int[] nums1, int m, int[] nums2, int n) {
+		/**
+		 * 思路：
+		 *  1.从大到小排序 从右到左放数
+		 *  2.比较2端最大值 最大值位-1
+		 *  3.最大值放最高位 最高位减1
+		 *  4.最后一个放到最低位
+		 */
 		// 重大到小填值避免值被覆盖
 		for (int i = m + n - 1; i >= 0; i--) {
 			// 记录哪边大
