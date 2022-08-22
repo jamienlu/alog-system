@@ -1,4 +1,4 @@
-package com.asura.alog.template.autoplan;
+package com.asura.alog.template.dynamicplan;
 
 public class AntoSolution {
     /**

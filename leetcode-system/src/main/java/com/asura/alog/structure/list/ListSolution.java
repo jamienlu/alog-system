@@ -21,14 +21,17 @@ public class ListSolution {
 		 * 思路
 		 * 1.新增1个空节点
 		 * 2.让头节点指向空节点，节点指向顺序反向
-		 * 3.没改变一次指向，节点前进一次
+		 * 3.每改变一次指向，节点前进一次
 		 */
-		ListNode protect = null;
+		ListNode protect = new ListNode();
 		while (head != null) {
-			ListNode nextHead = head.next;
+			// 记录下次遍历的节点
+			ListNode tempHead = head.next;
+			// 后继节点指向前一个节点
 			head.next = protect;
 			protect = head;
-			head = nextHead;
+			// 准备遍历下一个节点
+			head = tempHead;
 		}
 		return protect;
 	}
@@ -41,29 +44,40 @@ public class ListSolution {
 	 * @return
 	 */
 	public static ListNode reverseKGroup(ListNode head, int k) {
+		/**
+		 * 思路
+		 * 1.遍历链表获取达到K个长度或链表尾巴的子链表
+		 * 2.翻转子链表
+		 * 3.更新子链表和链表的边界
+		 * 4.循环 直到1为null
+		 */
+		// 新增保护节点
 		ListNode protect = new ListNode(0,head);
-		ListNode last = protect;
-
+		// 分组每一组的保护节点要变化
+		ListNode groupProtect = protect;
 		while (head != null) {
-			// 获取待翻转链表
-			ListNode end = getGroupNode(head, k-1);
-			if (end == null) {
+			// 获取组尾节点
+			ListNode tail = getTail(head, k-1);
+			if (tail == null) {
 				break;
+			} else {
+				// 记录下一组的头
+				ListNode nextHead = tail.next;
+				// 翻转
+				reverse(head, nextHead);
+				// 更新这次翻转的头和尾
+				groupProtect.next = tail;
+				head.next = nextHead;
+				// 更新下一组翻转的头
+				groupProtect = head;
+				head = nextHead;
 			}
-			ListNode nextGroupHead = end.next;
-			//  组内翻转
-			reverse(head,nextGroupHead);
-			// 更新边
-			last.next = end;
-			head.next = nextGroupHead;
-
-			last = head;
-			head = nextGroupHead;
 		}
 		return protect.next;
 	}
 
-	private static ListNode getGroupNode(ListNode head, int k) {
+
+	private static ListNode getTail(ListNode head, int k) {
 		while (head != null) {
 			if (k == 0) {
 				return head;
@@ -93,10 +107,18 @@ public class ListSolution {
 	 * @return
 	 */
 	public static ListNode mergeTwoLists(ListNode list1, ListNode list2) {
+		/**
+		 * 1.创建合并链表头节点
+		 * 2.指针指向2链表最小值，链表指针后移
+		 * 3.其中一个链表指向空时，结束遍历，指向剩余链表
+		 */
+		// 保护节点记录合并链表头节点
 		ListNode prtect = new ListNode(0);
+		// 移动头节点
 		ListNode head = prtect;
+
 		while (list1 != null && list2 != null) {
-			if (list1.val <= list2.val) {
+			if (list1.val < list2.val) {
 				head.next = list1;
 				list1 = list1.next;
 				head = head.next;
@@ -106,8 +128,9 @@ public class ListSolution {
 				head = head.next;
 			}
 		}
+		// 追加剩余节点
 		head.next = list1 == null ? list2 : list1;
-		return prtect.next;
+		return  prtect.next;
 	}
 
 	/**
@@ -118,12 +141,20 @@ public class ListSolution {
 	 * @return
 	 */
 	public static ListNode removeNthFromEnd(ListNode head, int n) {
-		ListNode protect = new ListNode(0, head);
-		int length = getLength(head);
+		/**
+		 * 1.创建保护节点用于遍历
+		 * 2.寻找链表长度
+		 * 3.遍历链表到删除节点前
+		 * 4.设置该节点的next指针指向其后节点的后节点
+		 */
+		ListNode protect = new ListNode(0,head);
+		int len = getLength(head);
 		ListNode cur = protect;
-		for (int i = 0; i < length - n; ++i) {
+		// 遍历到删除节点前
+		for (int i = 0; i < len - n; i++) {
 			cur = cur.next;
 		}
+		// 指向后后节点
 		cur.next = cur.next.next;
 		return protect.next;
 	}
@@ -131,8 +162,8 @@ public class ListSolution {
 	private static int getLength(ListNode head) {
 		int length = 0;
 		while (head != null) {
-			++length;
 			head = head.next;
+			length++;
 		}
 		return length;
 	}
@@ -144,6 +175,9 @@ public class ListSolution {
 	 * @return
 	 */
 	public static ListNode mergeKLists(ListNode[] lists) {
+		/**
+		 * 分治法 2各链表合并
+		 */
 		return mergeListNodeRange(lists, 0, lists.length - 1);
 	}
 
@@ -159,37 +193,15 @@ public class ListSolution {
 	}
 
 	/**
-	 * 展开为右树链表 - 从小到大
-	 *
-	 * @param root
-	 */
-	public void flatten(TreeNode root) {
-		TreeNode curr = root;
-		while (curr != null) {
-			if (curr.left != null) {
-				TreeNode next = curr.left;
-				TreeNode predecessor = next;
-				while (predecessor.right != null) {
-					predecessor = predecessor.right;
-				}
-				// 右子树放在最左右子数
-				predecessor.right = curr.right;
-				curr.left = null;
-				// 向右伸展，右节点接左节点
-				curr.right = next;
-			}
-			// 当前节点跳到之前的左节点重复操作
-			curr = curr.right;
-		}
-	}
-
-	/**
 	 * 返回链表到环的节点
 	 *
 	 * @param head
 	 * @return
 	 */
 	public ListNode detectCycle(ListNode head) {
+		/**
+		 * 1.hash存节点 遍历重复点为环节点
+		 */
 		Set<ListNode> set = new HashSet<>();
 		while (set.add(head)) {
 			if (head == null) {
@@ -207,23 +219,37 @@ public class ListSolution {
 	 * @return
 	 */
 	public ListNode insertionSortList(ListNode head) {
-		ListNode protect = new ListNode(0);
-		protect.next = head;
+		/**
+		 * 思路：
+		 * 1.添加保护头节点
+		 * 2.添加有序节点链表，遍历待插节点链表，
+		 * 3.待插节点进入有序节点链表，重有序节点的尾节点的后节点重新遍历
+		 * 4.遍历结束 返回头节点的后节点
+		 *
+		 */
+		// 保护节点
+		ListNode protect = new ListNode(0, head);
+		// 有序节点尾巴
 		ListNode sorted = head;
-		ListNode cur = head.next;
-		while (cur != null) {
-			if (sorted.val <= cur.val) {
+		// 待插节点
+		ListNode curIn = head.next;
+		while (curIn != null) {
+			// 待插节点比有序节点大，有序节点增长直到比它小才有插入的位置
+			if (sorted.val <= curIn.val) {
 				sorted = sorted.next;
 			} else {
 				ListNode pre = protect;
-				while (pre.next.val <= cur.val) {
+				// 从头节点开始遍历，直到节点比待插节点大
+				while (pre.next.val <= curIn.val) {
 					pre = pre.next;
 				}
-				sorted.next = cur.next;
-				cur.next = pre.next;
-				pre.next = cur;
+				// 把待插节点放在位置节点的前面，有序节点重新回到节点尾巴
+				sorted.next = curIn.next;
+				curIn.next = pre.next;
+				pre.next = curIn;
 			}
-			cur = sorted.next;
+			// 待插节点到有序节点的后节点
+			curIn = sorted.next;
 		}
 		return protect.next;
 	}
