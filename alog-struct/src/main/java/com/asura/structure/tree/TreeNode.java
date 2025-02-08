@@ -1,5 +1,11 @@
 package com.asura.structure.tree;
 
+/**
+ * 满二叉树
+ * 完全二叉树
+ * 平衡二叉树
+ * 二叉搜索树
+ */
 public class TreeNode {
     public int val;
     public TreeNode left;

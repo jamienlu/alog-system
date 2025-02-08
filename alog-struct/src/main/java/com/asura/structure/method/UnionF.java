@@ -1,4 +1,4 @@
-package com.asura.structure.math;
+package com.asura.structure.method;
 
 public class UnionF {
 	/**
