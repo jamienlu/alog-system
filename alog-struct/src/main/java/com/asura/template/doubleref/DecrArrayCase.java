@@ -1,4 +1,4 @@
-package com.asura.structure.array;
+package com.asura.template.doubleref;
 
 /**
  * @author jamieLu

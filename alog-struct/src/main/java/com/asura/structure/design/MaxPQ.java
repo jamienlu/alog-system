@@ -22,7 +22,7 @@
  *  along with algs4.jar.  If not, see http://www.gnu.org/licenses.
  ******************************************************************************/
 
-package com.asura.structure.queue;
+package com.asura.structure.design;
 
 import java.util.Comparator;
 import java.util.Iterator;

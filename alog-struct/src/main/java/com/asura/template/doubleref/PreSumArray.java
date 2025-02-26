@@ -1,4 +1,4 @@
-package com.asura.structure.array;
+package com.asura.template.doubleref;
 
 /**
  * @author jamieLu
@@ -16,7 +16,9 @@ public class PreSumArray {
             }
         }
     }
-
+    /**
+     * 计算矩阵中指定区域的和
+     */
     public int sumRegion(int row1, int col1, int row2, int col2) {
         // 位置转索引
         return preSum[row2+1][col2+1] + preSum[row1][col1] - preSum[row1][col2+1] - preSum[row2 + 1][col1];

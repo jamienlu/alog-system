@@ -1,4 +1,6 @@
-package com.asura.structure.list;
+package com.asura.template.doubleref;
+
+import com.asura.structure.list.ListNode;
 
 import java.util.Comparator;
 import java.util.PriorityQueue;

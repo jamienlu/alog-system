@@ -1,12 +1,10 @@
 package com.asura.structure.stack;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Comparator;
 import java.util.Deque;
 import java.util.HashMap;
 import java.util.LinkedList;
-import java.util.List;
 import java.util.Map;
 import java.util.Stack;
 
@@ -103,7 +101,6 @@ public class SortedStackCase {
      */
     private class StockSpanner {
         // 记录小于该股票的价格 和 小于该股票的天数
-        // price 10^5  天数 10^4
         Stack<int[]> stack = new Stack<>();
         public StockSpanner() {
 
@@ -151,7 +148,9 @@ public class SortedStackCase {
         }
         return sb.toString();
     }
-
+    /**
+     * 853. 车队
+     */
     public int carFleet(int target, int[] position, int[] speed) {
         // 寻找递增的连续时间
         // 必须位置递增才会有追赶机制成为一个车队
@@ -174,7 +173,9 @@ public class SortedStackCase {
         }
         return stack.size();
     }
-
+    /**
+     * 581. 最短无序连续子数组
+     */
     public int findUnsortedSubarray(int[] nums) {
         // 思路1 数组排序 比较2数组 左右2边最开始的不同值
         // 思路2 单调+栈 比当前元素大的栈元素都应该被排出
